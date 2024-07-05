@@ -1,0 +1,61 @@
+services:
+  users-db:
+    image: "mongo"
+    volumes:
+      - users_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - 9000:27017
+    networks:
+      database:
+ 
+  projects-db:
+    image: "mongo"
+    volumes:
+      - projects_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - 9001:27017
+    networks:
+      database:
+ 
+  tasks-db:
+    image: "mongo"
+    volumes:
+      - tasks_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - 9002:27017
+    networks:
+      database:
+ 
+  comments-db:
+    image: "mongo"
+    volumes:
+      - comments_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - 9003:27017
+    networks:
+      database:
+ 
+volumes:
+  users_volume:
+  projects_volume:
+  tasks_volume:
+  comments_volume:
+ 
+networks:
+  database: 
