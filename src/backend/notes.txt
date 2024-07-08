@@ -1,1 +1,10 @@
 add id to jwt
+
+Modification logs - 
+1. ID
+2. Service
+3. Location {ID of user, project and task}
+4. Modified by {takes current user ID}
+5. Original data
+6. Updated data
+7. Created at

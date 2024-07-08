@@ -71,9 +71,9 @@ class ResetPasswordRequest(BaseModel):
 # -------------------------------
 # change logs
     
-class ModificationHistory(BaseModel):
-    log: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+# class ModificationHistory(BaseModel):
+#     log: str
+#     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    class Config:
-        from_attributes = True
+#     class Config:
+#         from_attributes = True

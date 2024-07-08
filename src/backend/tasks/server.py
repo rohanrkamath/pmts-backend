@@ -53,11 +53,12 @@ async def create_task(task: TaskBase, role: str = Depends(user_required)):
 
     siblings_model = [TaskInDB(**sibling) for sibling in siblings]
 
-    response = TaskResponse(
-        tasks_on_same_level=siblings_model
-    )
+    return task_data
+    # response = TaskResponse(
+    #     tasks_on_same_level=siblings_model
+    # )
 
-    return response
+    # return response
 
 
 # async def create_task(task: TaskBase, role: str = Depends(user_required)):
