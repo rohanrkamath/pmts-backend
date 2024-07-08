@@ -1,0 +1,117 @@
+services:
+  users_db:
+    image: "mongo"
+    volumes:
+      - users_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    # ports:
+    #   - 9000:27017
+    networks:
+      - users_network
+
+  projects_db:
+    image: "mongo"
+    volumes:
+      - projects_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    # ports:
+    #   - 9001:27017
+    networks:
+      - projects_network
+
+  tasks_db:
+    image: "mongo"
+    volumes:
+      - tasks_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    # ports:
+    #   - 9002:27017
+    networks:
+      - tasks_network
+
+  comments_db:
+    image: "mongo"
+    volumes:
+      - comments_volume:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    # ports:
+    #   - 9003:27017
+    networks:
+      - comments_network
+
+  users:
+    build: ./users
+    hostname: users-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - users_db
+    networks:
+      - users_network
+
+  projects:
+    build: ./projects
+    hostname: projects-backend
+    ports:
+      - "8001:8001"
+    depends_on:
+      - projects_db
+    networks:
+      - projects_network
+
+  tasks:
+    build: ./tasks
+    ports:
+      - "8002:8002"
+    depends_on:
+      - tasks_db
+    networks:
+      - tasks_network
+
+  comments:
+    build: ./comments
+    ports:
+      - "8003:8003"
+    depends_on:
+      - comments_db
+    networks:
+      - comments_network
+
+  nginx_container:
+    build: ./nginx
+    ports:
+      - "8004:80"
+    networks:
+      - users_network
+      - projects_network
+      - tasks_network
+      - comments_network
+    depends_on:
+      - users
+      - projects
+      - tasks
+      - comments
+
+volumes:
+  users_volume:
+  projects_volume:
+  tasks_volume:
+  comments_volume:
+
+networks:
+  users_network:
+  projects_network:
+  tasks_network:
+  comments_network:
